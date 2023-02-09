@@ -10,11 +10,19 @@ export default {
             KEY: "e3ENGW4vH2FBakpfksCRV16OTNwyZh0e",
             London: [-0.118092,51.509865],
             oxford: [-1.257677, 51.754845],
-            map: null
+            map: null,
+            logos: [],
         }
     },
     mounted(){
-      this.initializeMap()
+      this.initializeMap();
+      this.animate();
+      
+    },
+    created()
+    {
+        this.welcome();
+
     },
     methods:{
         initializeMap() {
@@ -64,20 +72,80 @@ export default {
          
                 
 
-            } 
+            } ,
+        animate(){
+                const timeline = gsap.timeline({defaults: {duration: 1, }});
+                    timeline
+                    .from(".square", { y: '-400%',ease: "ease.Out", stagger: .1})
+                    .from("#h1",{ y: '-100%',ease: "bounce"})
+                    .from("#tom-map",{  opacity: 0, stagger: .6})
+
+                        // .from(".column-right", {  x: "-100vw", ease: "power2.in"}, 1)
+                        // .from(".column-left", {  x: "-100%", ease: "power2.in"}, "<.5")
+                        // .to("footer", {  y: 0, ease: "elastic", })
+                        // .fromTo("button", {  opacity: 0, scale: 0, rotation: 720 },{  opacity: 1,scale: 1, rotation: 0})
+
+                        // const btn = document.querySelector("button")
+                        // btn.addEventListener("click", () => {
+                        //     timeline.timeScale(3);
+                        //     timeline.reverse();
+                        // })
+        },
+        welcome(){
+            // var firstTime = localStorage.getItem("first_time");
+            //     if(!firstTime) {
+                    // first time loaded!
+                    for (let i = 0; i < 10; i++) {
+                        
+                        this.logos.push("../assets/brandforum_logo-tale-airbnb_the-belo.png")
+                        // console.log(this.logos);
+
+                        const timeline = gsap.timeline({defaults: {duration: 1, }});
+                            timeline
+                                // .from("#yo",{  opacity: 0, stagger: .6})
+                        
+                    }
+
+                    // localStorage.setItem("first_time","1");
+                // }
+        }  
 }}
 </script>
 <template>
-    <div>
-            <h1>TomTom Maps Demo</h1>
+    <div id="welcome">
+        <div v-for="logo in logos" class="square"></div>
+        <div v-for="logo in logos" class="square" id="blue"></div>
+        <div v-for="logo in logos" class="square"></div>
+    </div>
+    <div id="yo">
+            <h1 id="h1">TomTom Maps Demo</h1>
             <div id='tom-map' ref="mapRef"></div>
                 
     </div>
 </template>
 <style lang="scss" scoped>
+
+#welcome >div{
+    position: absolute;
+    top: 50%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    width: 10em;
+    height: 10em;
+    z-index: 1;
+    display: block;
+    background-color: white;
+    border: 1px solid black;
+
+    &#blue{
+    background-color: blue !important;
+    }
+}
+
 #tom-map {
     height: 50vh;
     width: 50vw;
+    border-radius: 10px;
     }
         .my-pop-up{
             color: red!important;
